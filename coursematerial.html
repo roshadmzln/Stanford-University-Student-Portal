@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Materials | Stanford University</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    
+    <style>
+        :root { 
+            --stanford-red: #8C1515;
+            --bg-body: #f4f2ee;
+            --bg-card: #ffffff;
+            --text-main: #343a40;
+            --border-color: #dee2e6;
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #121212;
+            --bg-card: #1e1e1e;
+            --text-main: #e0e0e0;
+            --border-color: #333333;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            font-family: 'Inter', sans-serif;
+            color: var(--text-main);
+            transition: background 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .main-wrapper { flex: 1; }
+
+        .portal-header-main {
+            background: var(--bg-card);
+            border-bottom: 2px solid var(--border-color);
+            padding: 15px 0; 
+        }
+        .portal-header-main img { height: 60px; }
+        .header-divider { border-left: 2px solid var(--border-color); padding-left: 20px; }
+
+        .breadcrumb-nav {
+            font-size: 1rem;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+        .breadcrumb-nav a {
+            color: var(--stanford-red);
+            text-decoration: none;
+        }
+        .breadcrumb-nav a:hover {
+            text-decoration: underline;
+        }
+        .breadcrumb-separator {
+            margin: 0 10px;
+            color: #6c757d;
+        }
+
+        .material-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            height: 100%;
+        }
+        .material-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .file-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-main);
+            margin-bottom: 5px;
+            background: rgba(0,0,0,0.02);
+        }
+        .file-item:hover { background: rgba(140, 21, 21, 0.05); color: var(--stanford-red); }
+        .file-icon { font-size: 1.5rem; margin-right: 15px; }
+
+        .portal-footer { background-color: var(--stanford-red); color: white; padding: 50px 0 20px 0; margin-top: 60px; }
+        .footer-logo { height: 50px; filter: brightness(0) invert(1); margin-bottom: 20px; }
+        .footer-link { color: rgba(255,255,255,0.8); text-decoration: none; display: block; margin-bottom: 8px; transition: 0.3s; }
+        .footer-link:hover { color: white; padding-left: 5px; }
+        .footer-hr { border-top: 1px solid rgba(255,255,255,0.2); margin: 30px 0 20px 0; }
+        
+        #theme-toggle { cursor: pointer; color: var(--stanford-red); font-size: 1.2rem; }
+    </style>
+</head>
+<body data-theme="light">
+
+<div class="main-wrapper">
+    <header class="portal-header-main shadow-sm sticky-top">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <img src="stheader.webp" alt="Stanford Logo"> <span class="ms-4 fs-5 header-divider d-none d-md-inline">Information System</span>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <div id="theme-toggle"><i class="bi bi-moon-fill" id="theme-icon"></i></div>
+                <div class="text-end border-start ps-3">
+                    <div class="fw-bold">George W. Russell</div>
+                    <a href="index.html" class="text-danger small text-decoration-none fw-semibold">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container my-5">
+        <nav class="breadcrumb-nav">
+            <a href="dashboard.html">Home</a>
+            <span class="breadcrumb-separator">/</span>
+            <span class="text-secondary">Course Materials</span>
+        </nav>
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold">Course Materials</h2>
+            <div class="dropdown">
+                <button class="btn btn-white border dropdown-toggle shadow-sm" type="button" data-bs-toggle="dropdown">
+                    Semester 4 (Current)
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Semester 5 (Internship Docs)</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="material-card p-4 shadow-sm">
+                    <h5 class="fw-bold text-danger">IMS601: ERP Systems</h5>
+                    <hr>
+                    <a href="ims601_lecture_notes.pdf" download class="file-item">
+                        <i class="bi bi-file-earmark-pdf file-icon text-danger"></i> Lecture 01-05 Notes.pdf
+                    </a>
+                    <a href="SAP_Intro_Module.pptx" download class="file-item">
+                        <i class="bi bi-file-earmark-ppt file-icon text-warning"></i> SAP_Intro_Module.pptx
+                    </a>
+                    <a href="Case_Study_Analysis.docx" download class="file-item">
+                        <i class="bi bi-file-earmark-text file-icon text-primary"></i> Case_Study_Analysis.docx
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="material-card p-4 shadow-sm">
+                    <h5 class="fw-bold text-danger">BIG450: Big Data Analytics</h5>
+                    <hr>
+                    <a href="hadoop_spark_guide.pdf" download class="file-item">
+                        <i class="bi bi-file-earmark-pdf file-icon text-danger"></i> Hadoop_Spark_Guide.pdf
+                    </a>
+                    <a href="Case_Study_Analysis.docx" download class="file-item">
+                        <i class="bi bi-file-earmark-text file-icon text-primary"></i> Phyton_Data_Scripts.docx
+                    </a>
+                    <a href="lab_exercise_04.pdf" download class="file-item">
+                        <i class="bi bi-file-earmark-pdf file-icon text-danger"></i> Lab_Exercise_04.pdf
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="material-card p-4 shadow-sm">
+                    <h5 class="fw-bold text-danger">CLD410: Cloud Computing</h5>
+                    <hr>
+                    <a href="aws_architecture_vol1.pdf" download class="file-item">
+                        <i class="bi bi-file-earmark-pdf file-icon text-danger"></i> AWS_Architecture_Vol1.pdf
+                    </a>
+                    <a href="https://youtu.be/j9Y4Wc8bIuA" download class="file-item">
+                        <i class="bi bi-play-circle file-icon text-info"></i> Virtualization_Lecture.mp4
+                    </a>
+                    <a href="assignment_2_brief.pdf" download class="file-item">
+                        <i class="bi bi-file-earmark-text file-icon text-primary"></i> Assignment_2_Brief.pdf
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-12 mt-4">
+                <div class="p-4 rounded-3 border bg-light shadow-sm">
+                    <h5 class="fw-bold"><i class="bi bi-briefcase me-2 text-danger"></i> Semester 5: Practical Training Resources</h5>
+                    <p class="text-muted">Download mandatory documentation for your upcoming internship placement.</p>
+                    <div class="d-flex flex-wrap gap-2">
+                        <a href="logbook.pdf" download><button class="btn btn-outline-dark btn-sm"><i class="bi bi-download me-1"></i> Internship Logbook</button></a>
+                        <a href="acceptance_form.pdf" download><button class="btn btn-outline-dark btn-sm"><i class="bi bi-download me-1"></i> Company Acceptance Form</button></a>
+                        <a href="evaluation_criteria.pdf" download><button class="btn btn-outline-dark btn-sm"><i class="bi bi-download me-1"></i> Evaluation Criteria</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="portal-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <img src="stheader.webp" alt="Stanford Logo" class="footer-logo">
+                <p class="small opacity-75">Providing academic excellence and innovative digital solutions for the Stanford student community.</p>
+            </div>
+            <div class="col-md-2 mb-4">
+                <h6 class="fw-bold mb-3">Navigation</h6>
+                <a href="dashboard.html" class="footer-link small">Home</a>
+                <a href="https://studentservices.stanford.edu/calendar-events/academic-calendars" class="footer-link small">Academic Calendar</a>
+                <a href="https://campus-map.stanford.edu/" class="footer-link small">Campus Map</a>
+            </div>
+            <div class="col-md-3 mb-4">
+                <h6 class="fw-bold mb-3">Student Support</h6>
+                <a href="https://uit.stanford.edu/service/help" class="footer-link small">IT Help Desk</a>
+                <a href="https://studentservices.stanford.edu/more-resources/office-university-registrar" class="footer-link small">Registrar's Office</a>
+            </div>
+            <div class="col-md-3 mb-4">
+                <h6 class="fw-bold mb-3">Contact Us</h6>
+                <p class="small mb-1"><i class="bi bi-geo-alt-fill me-2"></i> 450 Serra Mall, Stanford, CA</p>
+                <p class="small mb-1"><i class="bi bi-telephone-fill me-2"></i> +1 (650) 723-2300</p>
+                <p class="small"><i class="bi bi-envelope-fill me-2"></i> help@stanford.edu</p>
+            </div>
+        </div>
+        <div class="footer-hr"></div>
+        <div class="text-center small opacity-75">
+            &copy; 2025 Stanford University. All Rights Reserved. | 
+            <a href="#" class="text-white text-decoration-none ms-2">Privacy Policy</a> | 
+            <a href="#" class="text-white text-decoration-none ms-2">Terms of Service</a>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const body = document.body;
+
+    themeToggle.addEventListener('click', () => {
+        const isLight = body.getAttribute('data-theme') === 'light';
+        body.setAttribute('data-theme', isLight ? 'dark' : 'light');
+        themeIcon.classList.replace(isLight ? 'bi-moon-fill' : 'bi-sun-fill', isLight ? 'bi-sun-fill' : 'bi-moon-fill');
+    });
+</script>
+</body>
+</html>

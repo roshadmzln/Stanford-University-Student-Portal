@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fees Deferment | Stanford University</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <style>
+        :root { 
+            --stanford-red: #8C1515;
+            --stanford-dark: #2e2d29;
+            --bg-body: #f4f2ee;
+            --bg-card: #ffffff;
+            --text-main: #343a40;
+            --border-color: #e5e5e5;
+            --table-label: #888;
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #121212;
+            --bg-card: #1e1e1e;
+            --text-main: #e0e0e0;
+            --border-color: #333333;
+            --table-label: #aaaaaa;
+        }
+
+        body {
+            background: var(--bg-body);
+            font-family: 'Inter', sans-serif;
+            color: var(--text-main);
+            transition: background 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .main-wrapper { flex: 1; }
+
+        .portal-header {
+            background: var(--bg-card);
+            border-bottom: 2px solid var(--border-color);
+            padding: 15px 0; 
+        }
+        .portal-header img { height: 65px; width: auto; } 
+        .header-divider {
+            border-left: 2px solid var(--border-color); 
+            padding-left: 20px; 
+            font-weight: 500;
+        }
+
+        .portal-card {
+            background: var(--bg-card);
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+
+        .section-label {
+            font-size: .7rem;
+            letter-spacing: 1.5px;
+            color: var(--table-label);
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .form-label { font-weight: 600; font-size: 0.9rem; }
+        .btn-stanford { background-color: var(--stanford-red); color: white; font-weight: 600; padding: 10px 25px; border-radius: 8px; border: none; }
+        .btn-stanford:hover { background-color: #6e1010; color: white; }
+
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .status-pending { background: #fff3cd; color: #856404; }
+        .status-approved { background: #d4edda; color: #155724; }
+
+        .portal-footer {
+            background-color: var(--stanford-red);
+            color: white;
+            padding: 50px 0 20px 0;
+            margin-top: 60px;
+        }
+        .footer-logo { height: 50px; filter: brightness(0) invert(1); margin-bottom: 20px; }
+        .footer-link { color: rgba(255,255,255,0.8); text-decoration: none; display: block; margin-bottom: 8px; transition: 0.2s; }
+        .footer-link:hover { color: white; text-decoration: underline; }
+        .footer-hr { border-top: 1px solid rgba(255,255,255,0.2); margin: 30px 0 20px 0; }
+
+        #theme-toggle { cursor: pointer; color: var(--stanford-red); font-size: 1.2rem; }
+    </style>
+</head>
+
+<body data-theme="light">
+
+<div class="main-wrapper">
+    <div class="portal-header shadow-sm sticky-top">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <img src="images/stheader.webp" alt="Stanford Logo">
+                <span class="ms-4 fs-5 header-divider d-none d-md-inline">Information System</span>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <div id="theme-toggle"><i class="bi bi-moon-fill" id="theme-icon"></i></div>
+                <div class="text-end border-start ps-3">
+                    <div class="fw-bold">George W. Russell</div>
+                    <a href="index.html" class="text-danger small text-decoration-none fw-semibold">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="dashboard.html" class="text-danger text-decoration-none">Home</a></li>
+                <li class="breadcrumb-item active">Fees Deferment</li>
+            </ol>
+        </nav>
+        <h2 class="fw-bold mb-4">Fees Deferment Application</h2>
+
+        <div class="row g-4">
+            <div class="col-lg-5">
+                <div class="portal-card p-4 mb-4" style="border-left: 5px solid var(--stanford-red);">
+                    <div class="section-label mb-2">Current Outstanding Balance</div>
+                    <h2 class="fw-bold">$12,450.00</h2>
+                    <p class="text-muted small">Due Date: October 31, 2025</p>
+                </div>
+
+                <div class="portal-card p-4">
+                    <div class="section-label mb-3">Application History</div>
+                    <div class="table-responsive">
+                        <table class="table table-sm align-middle">
+                            <thead>
+                                <tr class="text-muted" style="font-size: 0.8rem;">
+                                    <th>Ref ID</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="history-table-body">
+                                <tr>
+                                    <td>#DEF-9921</td>
+                                    <td>Aug 12, 2024</td>
+                                    <td><span class="status-badge status-approved">Approved</span></td>
+                                </tr>
+                                <tr>
+                                    <td>#DEF-1042</td>
+                                    <td>Oct 20, 2025</td>
+                                    <td><span class="status-badge status-pending">In Review</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-7">
+                <div class="portal-card p-4">
+                    <div class="section-label mb-4">Submit New Deferment Request</div>
+                    <form id="defermentForm">
+                        <div class="row g-3">
+                            <div class="col-md-12">
+                                <label class="form-label">Reason for Deferment</label>
+                                <select class="form-select border-secondary-subtle p-2" id="deferReason" required>
+                                    <option selected disabled value="">Select a reason...</option>
+                                    <option>Financial Hardship</option>
+                                    <option>Waiting for Scholarship/Loan Approval</option>
+                                    <option>Medical Emergency</option>
+                                    <option>Family Emergency</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">Justification / Detailed Explanation</label>
+                                <textarea class="form-control border-secondary-subtle" id="deferDetails" rows="4" placeholder="Briefly describe your situation..." required></textarea>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">Supporting Documents (PDF Only)</label>
+                                <input type="file" class="form-control border-secondary-subtle" accept=".pdf">
+                                <div class="form-text">Attach proof of scholarship, medical certificates, or employer letters.</div>
+                            </div>
+                            <div class="col-md-12 mt-4">
+                                <div class="form-check small mb-3">
+                                    <input class="form-check-input" type="checkbox" id="terms" required>
+                                    <label class="form-check-label text-muted" for="terms">
+                                        I certify that the information provided is true and I understand that deferment is subject to university approval.
+                                    </label>
+                                </div>
+                                <button type="submit" class="btn btn-stanford w-100 shadow-sm">Submit Application</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="portal-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <img src="images/stheader.webp" alt="Stanford Footer Logo" class="footer-logo">
+                <p class="small opacity-75">Providing academic excellence and innovative digital solutions for the Stanford student community.</p>
+            </div>
+            <div class="col-md-2 mb-4">
+                <h6 class="fw-bold mb-3">Navigation</h6>
+                <a href="dashboard.html" class="footer-link small">Home</a>
+                <a href="https://studentservices.stanford.edu/calendar-events/academic-calendars" class="footer-link small">Academic Calendar</a>
+                <a href="https://campus-map.stanford.edu/" class="footer-link small">Campus Map</a>
+            </div>
+            <div class="col-md-3 mb-4">
+                <h6 class="fw-bold mb-3">Student Support</h6>
+                <a href="https://uit.stanford.edu/service/help" class="footer-link small">IT Help Desk</a>
+                <a href="https://studentservices.stanford.edu/more-resources/office-university-registrar" class="footer-link small">Registrar's Office</a>
+            </div>
+            <div class="col-md-3 mb-4">
+                <h6 class="fw-bold mb-3">Contact Us</h6>
+                <p class="small mb-1"><i class="bi bi-geo-alt-fill me-2"></i> 450 Serra Mall, Stanford, CA</p>
+                <p class="small mb-1"><i class="bi bi-telephone-fill me-2"></i> +1 (650) 723-2300</p>
+                <p class="small"><i class="bi bi-envelope-fill me-2"></i> help@stanford.edu</p>
+            </div>
+        </div>
+        <div class="footer-hr"></div>
+        <div class="text-center small opacity-75">
+            &copy; 2025 Stanford University. All Rights Reserved. | 
+            <a href="#" class="text-white text-decoration-none ms-2">Privacy Policy</a> | 
+            <a href="#" class="text-white text-decoration-none ms-2">Terms of Service</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const body = document.body;
+
+    themeToggle.addEventListener('click', () => {
+        const isLight = body.getAttribute('data-theme') === 'light';
+        body.setAttribute('data-theme', isLight ? 'dark' : 'light');
+        themeIcon.classList.replace(isLight ? 'bi-moon-fill' : 'bi-sun-fill', isLight ? 'bi-sun-fill' : 'bi-moon-fill');
+    });
+
+    // --- NEW HISTORY LOGIC ---
+    document.getElementById('defermentForm').addEventListener('submit', function(e) {
+        e.preventDefault(); // Stop the page from reloading
+
+        // Get current date
+        const now = new Date();
+        const options = { month: 'short', day: 'numeric', year: 'numeric' };
+        const dateString = now.toLocaleDateString('en-US', options);
+        
+        // Generate a random Ref ID
+        const randomID = "#DEF-" + Math.floor(1000 + Math.random() * 9000);
+
+        // Create the new row HTML
+        const newRow = `
+            <tr>
+                <td>${randomID}</td>
+                <td>${dateString}</td>
+                <td><span class="status-badge status-pending">In Review</span></td>
+            </tr>
+        `;
+
+        // Add to the top of the history table
+        const tableBody = document.getElementById('history-table-body');
+        tableBody.insertAdjacentHTML('afterbegin', newRow);
+
+        // Reset the form and show alert
+        this.reset();
+        alert("Success! Your deferment request has been submitted and added to your history.");
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal | Stanford University</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <style>
+        :root { 
+            --stanford-red: #8C1515;
+            --stanford-dark: #2e2d29;
+            --bg-body: #f4f2ee;
+            --bg-card: #ffffff;
+            --text-main: #343a40;
+            --border-color: #e5e5e5;
+            --table-label: #888;
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #121212;
+            --bg-card: #1e1e1e;
+            --text-main: #e0e0e0;
+            --border-color: #333333;
+            --table-label: #aaaaaa;
+        }
+
+        body {
+            background: var(--bg-body);
+            font-family: 'Inter', sans-serif;
+            color: var(--text-main);
+            transition: background 0.3s ease, color 0.3s ease;
+            font-size: 0.95rem;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            border-top: 5px solid var(--stanford-red);
+        }
+
+        .main-wrapper { flex: 1; }
+
+        
+        .portal-header {
+            background: var(--bg-card);
+            border-bottom: 2px solid var(--border-color);
+            padding: 15px 0; 
+        }
+        .portal-header img { height: 65px; width: auto; } 
+
+        .header-divider {
+            border-left: 2px solid var(--border-color); 
+            padding-left: 20px; 
+            font-weight: 500;
+        }
+
+        #theme-toggle {
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            color: var(--stanford-red);
+        }
+
+        
+        .portal-hero .carousel-item img {
+            width: 100% !important;
+            height: 320px !important;
+            object-fit: cover !important; 
+            object-position: center !important;
+        }
+
+        
+        .portal-card {
+            background: var(--bg-card);
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+            border-top: 3px solid var(--stanford-red); 
+        }
+
+        .nav-home-btn {
+            background-color: var(--stanford-red);
+            color: white !important;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .nav-menu-list { list-style: none; padding: 0; }
+        .nav-menu-list li { margin-bottom: 12px; }
+
+        .menu-link {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            border-radius: 8px;
+            color: var(--text-main) !important;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .menu-link i { width: 25px; color: var(--stanford-red); }
+        .menu-link:hover { background: rgba(140, 21, 21, 0.1); transform: translateX(5px); }
+
+        
+        .profile-card-bg {
+            background: linear-gradient(180deg, rgba(140, 21, 21, 0.05) 0%, var(--bg-card) 100%);
+        }
+
+        .profile-pic-square {
+            width: 150px; height: 150px;
+            object-fit: cover; 
+            border: 4px solid var(--stanford-red); 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15); border-radius: 12px; 
+        }
+
+        .section-label {
+            font-size: .7rem; letter-spacing: 1.5px;
+            color: var(--stanford-red); 
+            font-weight: 700; text-transform: uppercase;
+        }
+
+        .qa-card {
+            background: var(--bg-card); border-radius: 12px; padding: 20px;
+            text-align: center; border: 1px solid var(--border-color);
+            transition: all 0.3s; color: var(--text-main); text-decoration: none; display: block;
+        }
+        .qa-card:hover { 
+            transform: translateY(-5px); 
+            border-color: var(--stanford-red); 
+            box-shadow: 0 8px 15px rgba(140, 21, 21, 0.1);
+        }
+
+        .table th { color: var(--table-label); width: 40%; }
+
+        
+        .portal-footer {
+            background-color: var(--stanford-red);
+            color: white;
+            padding: 50px 0 20px 0;
+            margin-top: 60px;
+        }
+        .footer-logo { height: 50px; filter: brightness(0) invert(1); margin-bottom: 20px; }
+        .footer-link { color: rgba(255,255,255,0.8); text-decoration: none; display: block; margin-bottom: 8px; transition: 0.2s; }
+        .footer-link:hover { color: white; text-decoration: underline; }
+        .footer-hr { border-top: 1px solid rgba(255,255,255,0.2); margin: 30px 0 20px 0; }
+    </style>
+</head>
+
+<body data-theme="light">
+
+<div class="main-wrapper">
+    <div class="portal-header shadow-sm sticky-top">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <img src="images/stheader.webp" alt="Stanford Logo">
+                <span class="ms-4 fs-5 header-divider d-none d-md-inline">Information System</span>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <div id="theme-toggle"><i class="bi bi-moon-fill" id="theme-icon"></i></div>
+                <div class="text-end border-start ps-3">
+                    <div class="fw-bold">George W. Russell</div>
+                    <a href="index.html" class="text-danger small text-decoration-none fw-semibold">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="portal-hero">
+        <div id="portalCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active"><img src="images/campus1.webp"></div>
+                <div class="carousel-item"><img src="images/stanfordlogin.jpg"></div>
+		<div class="carousel-item"><img src="images/campus5.jpg"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container my-5">
+        <div class="row g-4">
+            <div class="col-md-3">
+                <div class="portal-card p-4 h-100">
+                    <a href="index.html" class="nav-home-btn text-decoration-none"><i class="bi bi-house-door-fill me-2"></i> HOME</a>
+                    <div class="section-label mb-3">STUDENT MENU</div>
+                    <ul class="nav-menu-list">
+                        <li><a href="courseoutline.html" class="menu-link"><i class="bi bi-journal-text"></i>Course Outline</a></li>
+                        <li><a href="https://uit.stanford.edu/emailcalendar" target="_blank" class="menu-link"><i class="bi bi-envelope"></i>Student Email</a></li>
+                        <li><a href="attendance.html" class="menu-link"><i class="bi bi-calendar-check"></i>Attendance</a></li>
+                        <li><a href="results.html" class="menu-link"><i class="bi bi-file-earmark-bar-graph"></i>Exam Results</a></li>
+                        <li><a href="https://mylibrary.stanford.edu/" target="_blank" class="menu-link"><i class="bi bi-book"></i>Digital Library</a></li>
+                        <li><a href="feesdeferment.html" class="menu-link"><i class="bi bi-clock-history"></i>Fees Deferment</a></li>
+                        <li><a href="intern.html" class="menu-link"><i class="bi bi-briefcase"></i>Practical Training</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-5">
+                <div class="portal-card p-4 h-100 text-center profile-card-bg">
+                    <div class="section-label mb-4">STUDENT PROFILE</div>
+                    <img src="images/russellid.webp" class="profile-pic-square mb-4" alt="Profile">
+                    <table class="table table-borderless text-start mx-auto" style="max-width: 90%;">
+                        <tr><th>STUDENT ID</th><td>2025117029</td></tr>
+                        <tr><th>NAME</th><td class="fw-bold">George William Russell</td></tr>
+                        <tr><th>PROGRAMME</th><td>CDIM262</td></tr>
+                        <tr><th>MOBILE</th><td>011-55051996</td></tr>
+                        <tr><th>EMAIL</th><td>gwrussell@gmail.com</td></tr>
+                        <tr><th>PART</th><td>PART 4</td></tr>
+                        <tr><th>ADVISOR</th><td>Toto Wolff</td></tr>
+                        <tr><th>CGPA</th><td class="fw-bold text-success fs-5">3.92</td></tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="section-label mb-3">QUICK ACCESS</div>
+                <div class="d-flex flex-column gap-3">
+                    <a href="courses.html" class="qa-card shadow-sm"><i class="bi bi-mortarboard fs-2 text-danger"></i><div class="fw-bold mt-2">My Courses</div></a>
+                    <a href="studentcard.html" class="qa-card shadow-sm"><i class="bi bi-person-badge fs-2 text-danger"></i><div class="fw-bold mt-2">Digital Student Card</div></a>
+                    <a href="schedule.html" class="qa-card shadow-sm"><i class="bi bi-calendar3 fs-2 text-danger"></i><div class="fw-bold mt-2">Class Schedule</div></a>
+                    <a href="coursematerial.html" class="qa-card shadow-sm"><i class="bi bi-folder2-open fs-2 text-danger"></i><div class="fw-bold mt-2">Course Materials</div></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mt-2">
+            <div class="col-md-4"><div class="portal-card p-4"><div class="section-label mb-3">CGPA PROGRESSION</div><canvas id="cgpaChart" height="250"></canvas></div></div>
+            <div class="col-md-4"><div class="portal-card p-4"><div class="section-label mb-3">ATTENDANCE OVERVIEW</div><canvas id="attendanceChart" height="250"></canvas></div></div>
+            <div class="col-md-4"><div class="portal-card p-4"><div class="section-label mb-3">CREDIT HOURS</div><canvas id="creditChart" height="250"></canvas></div></div>
+        </div>
+    </div>
+</div>
+
+
+    <footer class="portal-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <img src="images/stheader.webp" alt="Stanford Logo" class="footer-logo">
+                    <p class="small opacity-75">Dedicated to providing academic excellence and innovative digital solutions for the global student community.</p>
+                </div>
+                <div class="col-md-2 mb-4">
+                <h6 class="fw-bold mb-3">Navigation</h6>
+                <a href="dashboard.html" class="footer-link small">Home</a>
+                <a href="https://studentservices.stanford.edu/calendar-events/academic-calendars" class="footer-link small">Academic Calendar</a>
+                <a href="https://campus-map.stanford.edu/" class="footer-link small">Campus Map</a>
+            </div>
+            <div class="col-md-3 mb-4">
+                <h6 class="fw-bold mb-3">Student Support</h6>
+                <a href="https://uit.stanford.edu/service/help" class="footer-link small">IT Help Desk</a>
+                <a href="https://studentservices.stanford.edu/more-resources/office-university-registrar" class="footer-link small">Registrar's Office</a>
+            </div>
+            <div class="col-md-3 mb-4">
+                <h6 class="fw-bold mb-3">Contact Us</h6>
+                <p class="small mb-1"><i class="bi bi-geo-alt-fill me-2"></i> 450 Serra Mall, Stanford, CA</p>
+                <p class="small mb-1"><i class="bi bi-telephone-fill me-2"></i> +1 (650) 723-2300</p>
+                <p class="small"><i class="bi bi-envelope-fill me-2"></i> help@stanford.edu</p>
+            </div>
+        </div>
+        <div class="footer-hr"></div>
+        <div class="text-center small opacity-75">
+            &copy; 2025 Stanford University. All Rights Reserved. | 
+            <a href="#" class="text-white text-decoration-none ms-2">Privacy Policy</a> | 
+            <a href="#" class="text-white text-decoration-none ms-2">Terms of Service</a>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const body = document.body;
+
+    let cgpaChart, attendanceChart, creditChart;
+
+    function initCharts() {
+        const isDark = body.getAttribute('data-theme') === 'dark';
+        const textColor = isDark ? '#aaaaaa' : '#888888';
+        const gridColor = isDark ? '#333' : '#eee';
+
+        // 1. CGPA CHART - Update these numbers to match results.html!
+        cgpaChart = new Chart(document.getElementById('cgpaChart'), {
+            type: 'bar',
+            data: { 
+                labels: ['Sem 1', 'Sem 2', 'Sem 3',], 
+                datasets: [{ 
+                    label: 'GPA',
+                    data: [3.82, 3.71, 3.88,], // MATCH THESE TO YOUR ACTUAL RESULTS
+                    backgroundColor: '#8C1515', 
+                    borderRadius: 8 
+                }] 
+            },
+            options: { 
+                onClick: (evt, elements) => {
+                    if (elements.length > 0) {
+                        const index = elements[0].index;
+                        const semester = index + 1;
+                        // Passes the semester number to the next page
+                        window.location.href = `results.html?sem=${semester}`;
+                    }
+                },
+                plugins: { 
+                    legend: { display: false },
+                    tooltip: { callbacks: { label: (ctx) => `GPA: ${ctx.raw} (Click for details)` } }
+                }, 
+                scales: { 
+                    y: { min: 0, max: 4, grid: { color: gridColor }, ticks: { color: textColor } }, 
+                    x: { ticks: { color: textColor } } 
+                } 
+            }
+        });
+
+        // 2. ATTENDANCE CHART
+        attendanceChart = new Chart(document.getElementById('attendanceChart'), {
+            type: 'pie',
+            data: { 
+                labels: ['Present', 'Absent'], 
+                datasets: [{ 
+                    data: [94.2, 5.8], 
+                    backgroundColor: ['#198754', '#dc3545'], 
+                    borderWidth: 0 
+                }] 
+            },
+            options: { 
+                onClick: (evt, elements) => { if (elements.length > 0) window.location.href = 'attendance.html'; },
+                plugins: { 
+                    legend: { position: 'bottom', labels: { color: textColor } },
+                    tooltip: { callbacks: { label: (ctx) => `${ctx.label}: ${ctx.raw}%` } }
+                } 
+            }
+        });
+
+        // 3. CREDIT CHART
+        creditChart = new Chart(document.getElementById('creditChart'), {
+            type: 'radar',
+            data: { 
+                labels: ['Core', 'Elective', 'Language', 'Co-Curriculum', 'Research'], 
+                datasets: [{ 
+                    label: 'Credits Achieved', 
+                    data: [18, 12, 6, 4, 10], 
+                    backgroundColor: 'rgba(140, 21, 21, 0.2)', 
+                    borderColor: '#8C1515',
+                    pointBackgroundColor: '#8C1515'
+                }] 
+            },
+            options: { 
+                scales: { 
+                    r: { 
+                        grid: { color: gridColor }, 
+                        angleLines: { color: gridColor }, 
+                        pointLabels: { color: textColor, font: { weight: 'bold' } },
+                        ticks: { display: false }
+                    } 
+                }, 
+                plugins: { legend: { labels: { color: textColor } } } 
+            }
+        });
+    }
+
+    themeToggle.addEventListener('click', () => {
+        const isLight = body.getAttribute('data-theme') === 'light';
+        body.setAttribute('data-theme', isLight ? 'dark' : 'light');
+        themeIcon.classList.replace(isLight ? 'bi-moon-fill' : 'bi-sun-fill', isLight ? 'bi-sun-fill' : 'bi-moon-fill');
+        cgpaChart.destroy(); attendanceChart.destroy(); creditChart.destroy();
+        initCharts();
+    });
+
+    initCharts();
+</script>
+</body>
+</html>

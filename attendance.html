@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Tracking | Stanford University</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <style>
+        :root { 
+            --stanford-red: #8C1515;
+            --stanford-dark: #2e2d29;
+            --bg-body: #f4f2ee;
+            --bg-card: #ffffff;
+            --text-main: #343a40;
+            --border-color: #e5e5e5;
+            --table-label: #888;
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #121212;
+            --bg-card: #1e1e1e;
+            --text-main: #e0e0e0;
+            --border-color: #333333;
+            --table-label: #aaaaaa;
+        }
+
+        body {
+            background: var(--bg-body);
+            font-family: 'Inter', sans-serif;
+            color: var(--text-main);
+            transition: background 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .main-wrapper { flex: 1; }
+
+        
+        .portal-header {
+            background: var(--bg-card);
+            border-bottom: 2px solid var(--border-color);
+            padding: 15px 0; 
+        }
+        .portal-header img { height: 65px; width: auto; } 
+        .header-divider {
+            border-left: 2px solid var(--border-color); 
+            padding-left: 20px; 
+            font-weight: 500;
+        }
+        #theme-toggle { cursor: pointer; color: var(--stanford-red); font-size: 1.2rem; }
+
+        
+        .portal-card {
+            background: var(--bg-card);
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+
+        .section-label {
+            font-size: .7rem;
+            letter-spacing: 1.5px;
+            color: var(--table-label);
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .progress { height: 8px; border-radius: 10px; background-color: var(--border-color); }
+        .progress-bar { background-color: var(--stanford-red); }
+
+        
+        .status-pill {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .status-present { background: rgba(25, 135, 84, 0.1); color: #198754; }
+        .status-absent { background: rgba(220, 53, 69, 0.1); color: #dc3545; }
+
+        
+        .portal-footer {
+            background-color: var(--stanford-red);
+            color: white;
+            padding: 50px 0 20px 0;
+            margin-top: 60px;
+        }
+        .footer-logo { height: 50px; filter: brightness(0) invert(1); margin-bottom: 20px; }
+        .footer-link { color: rgba(255,255,255,0.8); text-decoration: none; display: block; margin-bottom: 8px; transition: 0.2s; }
+        .footer-link:hover { color: white; text-decoration: underline; }
+        .footer-hr { border-top: 1px solid rgba(255,255,255,0.2); margin: 30px 0 20px 0; }
+    </style>
+</head>
+
+<body data-theme="light">
+
+<div class="main-wrapper">
+    <div class="portal-header shadow-sm sticky-top">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <img src="images/stheader.webp" alt="Stanford Logo">
+                <span class="ms-4 fs-5 header-divider d-none d-md-inline">Information System</span>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <div id="theme-toggle"><i class="bi bi-moon-fill" id="theme-icon"></i></div>
+                <div class="text-end border-start ps-3">
+                    <div class="fw-bold">George W. Russell</div>
+                    <a href="index.html" class="text-danger small text-decoration-none fw-semibold">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="dashboard.html" class="text-danger text-decoration-none">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Attendance</li>
+            </ol>
+        </nav>
+        
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold mb-0">Class Attendance: Semester 4</h2>
+            <button class="btn btn-outline-danger btn-sm" onclick="generatePDF()">
+                <i class="bi bi-file-earmark-pdf me-2"></i>Export Report
+            </button>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="portal-card p-4">
+                    <div class="section-label mb-3">Overall Percentage</div>
+                    <div class="text-center py-3">
+                        <h1 class="display-3 fw-bold text-success">94.2%</h1>
+                        <p class="text-muted">Status: Good Standing</p>
+                    </div>
+                </div>
+
+                <div class="portal-card p-4">
+                    <div class="section-label mb-3">Course Breakdown</div>
+                    
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between small mb-1">
+                            <span>IMS601: ERP Systems</span><span class="fw-bold">98%</span>
+                        </div>
+                        <div class="progress"><div class="progress-bar" style="width: 98%"></div></div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between small mb-1">
+                            <span>BIG450: Big Data</span><span class="fw-bold">92%</span>
+                        </div>
+                        <div class="progress"><div class="progress-bar" style="width: 92%"></div></div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between small mb-1">
+                            <span>CLD410: Cloud Comp.</span><span class="fw-bold">89%</span>
+                        </div>
+                        <div class="progress"><div class="progress-bar" style="width: 89%"></div></div>
+                    </div>
+
+                    <div class="mb-2">
+                        <div class="d-flex justify-content-between small mb-1">
+                            <span>UIX405: UI/UX Design</span><span class="fw-bold">100%</span>
+                        </div>
+                        <div class="progress"><div class="progress-bar" style="width: 100%"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="portal-card p-4">
+                    <div class="section-label mb-4">Recent Attendance Logs</div>
+                    <div class="table-responsive">
+                        <table class="table align-middle">
+                            <thead class="table-light">
+                                <tr class="small text-uppercase">
+                                    <th>Date</th>
+                                    <th>Code</th>
+                                    <th>Course Name</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Oct 24, 2025</td>
+                                    <td class="fw-bold">IMS601</td>
+                                    <td>ERP Systems</td>
+                                    <td><span class="status-pill status-present">Present</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Oct 23, 2025</td>
+                                    <td class="fw-bold">BIG450</td>
+                                    <td>Big Data Analytics</td>
+                                    <td><span class="status-pill status-present">Present</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Oct 22, 2025</td>
+                                    <td class="fw-bold">CLD410</td>
+                                    <td>Cloud Computing</td>
+                                    <td><span class="status-pill status-absent">Absent</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Oct 21, 2025</td>
+                                    <td class="fw-bold">UIX405</td>
+                                    <td>UI/UX Design</td>
+                                    <td><span class="status-pill status-present">Present</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Oct 20, 2025</td>
+                                    <td class="fw-bold">PRO490</td>
+                                    <td>Project Management</td>
+                                    <td><span class="status-pill status-present">Present</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-4 p-3 bg-light rounded-3">
+                        <p class="small text-muted mb-0"><i class="bi bi-info-circle me-2"></i>Note: Attendance below 80% may result in a warning letter from the registrar.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="portal-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <img src="images/stheader.webp" alt="Stanford Footer Logo" class="footer-logo">
+                <p class="small opacity-75">Providing academic excellence and innovative digital solutions for the global Stanford community.</p>
+            </div>
+            <div class="col-md-2 mb-4">
+                <h6 class="fw-bold mb-3">Portal</h6>
+                <a href="dashboard.html" class="footer-link small">Home</a>
+                <a href="courses.html" class="footer-link small">My Courses</a>
+                <a href="results.html" class="footer-link small">Results</a>
+            </div>
+            <div class="col-md-3 mb-4">
+                <h6 class="fw-bold mb-3">Support</h6>
+                <a href="https://uit.stanford.edu/service/help" class="footer-link small">IT Help Desk</a>
+                <a href="https://studentservices.stanford.edu/more-resources/office-university-registrar" class="footer-link small">Registrar's Office</a>
+            </div>
+            <div class="col-md-3 mb-4">
+                <h6 class="fw-bold mb-3">Contact Us</h6>
+                <p class="small mb-1">450 Serra Mall, Stanford, CA</p>
+                <p class="small mb-1">+1 (650) 723-2300</p>
+            </div>
+        </div>
+        <div class="footer-hr"></div>
+        <div class="text-center small opacity-75">
+            &copy; 2025 Stanford University. | Student ID: 2025117029
+        </div>
+    </div>
+</footer>
+
+<script>
+    // 1. Dark Mode Toggle Script
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const body = document.body;
+
+    themeToggle.addEventListener('click', () => {
+        const isLight = body.getAttribute('data-theme') === 'light';
+        body.setAttribute('data-theme', isLight ? 'dark' : 'light');
+        
+        // Update Icons
+        if (isLight) {
+            themeIcon.classList.replace('bi-moon-fill', 'bi-sun-fill');
+        } else {
+            themeIcon.classList.replace('bi-sun-fill', 'bi-moon-fill');
+        }
+    });
+
+    // 2. Functional Download Script
+    function generatePDF() {
+        const studentName = "George_Russell";
+        const filename = `${studentName}_Attendance_Sem4.pdf`;
+        
+        // Content for the simulated PDF
+        const content = `
+            STANFORD UNIVERSITY ATTENDANCE REPORT
+            -------------------------------------
+            Student: George W. Russell
+            ID: 2025117029
+            Semester: 4
+            Session: Sept 2025
+            
+            OVERALL ATTENDANCE: 94.2%
+            
+            COURSE BREAKDOWN:
+            - IMS601: 98%
+            - BIG450: 92%
+            - CLD410: 89%
+            - UIX405: 100%
+            
+            Report generated on: ${new Date().toLocaleDateString()}
+        `;
+
+        // Create the file Blob
+        const blob = new Blob([content], { type: 'text/plain' }); // Use text/plain for simulation
+        const link = document.createElement('a');
+        
+        link.href = window.URL.createObjectURL(blob);
+        link.download = filename;
+        
+        // Trigger the download
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        alert("Attendance Report successfully generated and downloaded.");
+    }
+</script>
+
+</body>
+</html>
